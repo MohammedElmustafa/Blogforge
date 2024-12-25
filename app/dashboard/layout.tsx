@@ -70,10 +70,6 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                 <DropdownMenuItem asChild>
                   <LogoutLink>Log out</LogoutLink>
                 </DropdownMenuItem>
-
-                <DropdownMenuItem>
-                  a
-                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
