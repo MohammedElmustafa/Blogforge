@@ -24,10 +24,8 @@ import {
 } from "@/components/ui/table";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
-import useSWR from "swr";
-
-const fetchMassages = async () => {
-  const response = await prisma.contactMessage.findMany({
+async function getAllMassage() {
+  const Massages = await prisma.contactMessage.findMany({
     select: {
       name: true,
       email: true,
@@ -35,30 +33,21 @@ const fetchMassages = async () => {
       createdAt: true,
     },
   });
-  return response;
-};
-
-export default function AdminDashboardContact() {
-  const { data: Massage, error } = useSWR('contactMessages', fetchMassages);
-
-  if (error) {
-    return <div>Error loading messages.</div>;
-  }
-
-  if (!Massage) {
-    return <div>Loading...</div>;
-  }
+  return Massages;
+}
+export default async function AdminDashboardContact() {
+  const Massage = await getAllMassage();
   return (
     <>
-      <h1 className="text-2xl font-bold">All Messages</h1>
+      <h1 className="text-2xl font-bold">All Massages</h1>
       {Massage.length === 0 ? (
-        <div>No Messages found</div>
+        <div>No Massages found</div>
       ) : (
         <div>
           <Card>
             <CardHeader>
-              <CardTitle>All Messages</CardTitle>
-              <CardDescription>Manage all Messages from this dashboard</CardDescription>
+              <CardTitle>All Massages</CardTitle>
+              <CardDescription>Manage all Massages from this dashboard</CardDescription>
             </CardHeader>
             <CardContent>
               <Table>
@@ -77,7 +66,7 @@ export default function AdminDashboardContact() {
                       <TableCell className="text-left">{Massage.message}</TableCell>
                     </TableRow>
                   ))}
-                </TableBody>
+                  </TableBody>
               </Table>
             </CardContent>
           </Card>
